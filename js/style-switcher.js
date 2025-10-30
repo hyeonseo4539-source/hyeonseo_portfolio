@@ -1,3 +1,4 @@
+window.onload = function () {
 /* ===== toggle Style Switcher ===== */ 
 const styleSwitcherToggler = document.querySelector(".style-switcher-toggler");
 const styleSwitcher = document.querySelector(".style-switcher");
