@@ -1,14 +1,4 @@
 
-
-
-/* ===== typing animation ===== */
-let typed = new Typed(".typing", {
-  strings: ["", "Product Manager", "Designer", "Programmer", "Publisher", "Marketer "
-],
-  typeSpeed: 100,
-  BackSpeed: 60,
-  loop: true
-})
 /* ===== Aside ===== */
 const nav = document.querySelector(".nav"),
   navList = nav.querySelectorAll("li"),
