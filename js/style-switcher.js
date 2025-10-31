@@ -1,90 +1,72 @@
-window.onload = function () {
-/* ===== toggle Style Switcher ===== */ 
-/* ===== toggle Style Switcher ===== */ 
+/* ===== toggle Style Switcher ===== */
 const styleSwitcherToggler = document.querySelector(".style-switcher-toggler");
 const styleSwitcher = document.querySelector(".style-switcher");
 
 styleSwitcherToggler.addEventListener("click", () => {
-  // 다른 메뉴(aside)를 닫는 로직을 제거하고,
-  // 스타일 스위처를 토글하는 핵심 기능만 남깁니다.
-  styleSwitcher.classList.toggle("open");
-})
+  styleSwitcher.classList.toggle("open");
+});
 
-/* ===== hide style - switcher on scroll ===== */ 
-// (이하 나머지 코드는 동일)
-
-/* ===== hide style - switcher on scroll ===== */ 
+/* ===== hide style - switcher on scroll ===== */
 window.addEventListener("scroll", () => {
   if (styleSwitcher.classList.contains("open")) {
     styleSwitcher.classList.remove("open");
   }
-})
+});
 
-
-/* ===== theme color ===== */ 
-const alternateStyle = document.querySelectorAll(".alternate-style");
+/* ===== theme color ===== */
+const colorStyle = document.getElementById("color-style");
 
 function setActiveStyle(color) {
+  console.log("setActiveStyle called with color:", color);
   localStorage.setItem("color", color);
   changeColor();
+}
 
-  function changeColor() {
-    alternateStyle.forEach((style) => {
-      if(localStorage.getItem("color") === style.getAttribute("title")){
-      // if (color === style.getAttribute("title")) {
-        style.removeAttribute("disabled");
-      }
-      else {
-        style.setAttribute("disabled", "true");
-      }
-    })
+function changeColor() {
+  const color = localStorage.getItem("color");
+  console.log("changeColor called. Color from localStorage:", color);
+  if (color) {
+    const timestamp = new Date().getTime();
+    colorStyle.setAttribute("href", `./skins/${color}.css?t=${timestamp}`);
+    console.log("Stylesheet href changed to:", `./skins/${color}.css?t=${timestamp}`);
+  } else {
+    console.log("No color found in localStorage.");
   }
-  styleSwitcher.classList.remove("open");
-}  
+}
 
+// checking for saved color
+if (localStorage.getItem("color") !== null) {
+  changeColor();
+}
 
-// if (localStorage.getItem("color") === style.getAttribute("title"))
-// })
-
-/* ===== theme light and dark mode ===== */ 
+/* ===== theme light and dark mode ===== */
 const dayNight = document.querySelector(".day-night");
 
 dayNight.addEventListener("click", () => {
   dayNight.querySelector("i").classList.toggle("fa-sun");
   dayNight.querySelector("i").classList.toggle("fa-moon");
-  document.body.classList.toggle("dark"); 
+  document.body.classList.toggle("dark");
   if (document.body.classList.contains("dark")) {
-    localStorage.setItem("theme", "dark")
+    localStorage.setItem("theme", "dark");
   } else {
-    localStorage.setItem("theme", "")
+    localStorage.setItem("theme", "light");
   }
-})
-
+});
 
 window.addEventListener("load", () => {
+  console.log("Window loaded. Initializing theme and color.");
   if (document.body.classList.contains("dark")) {
     dayNight.querySelector("i").classList.add("fa-sun");
   } else {
     dayNight.querySelector("i").classList.add("fa-moon");
   }
-})
 
-
-// Local Storage
-function themeSet() {
-  if (localStorage.getItem('theme') === 'dark') {
-    document.body.classList.add("dark");
-  } else {
-    document.body.classList.remove('dark')
+  // set theme
+  if (localStorage.getItem("theme") !== null) {
+    if (localStorage.getItem("theme") === "light") {
+      document.body.classList.remove("dark");
+    } else {
+      document.body.classList.add("dark");
+    }
   }
-}
-themeSet();
-
-
-function colorSet() {
-  for (let i = 0; i < alternateStyle.length; i++) {
-    if (localStorage.getItem('color') === `color-${i+1}`)
-    setActiveStyle(`color-${i+1}`)
-  }
-}
-colorSet();
+});
