@@ -1,15 +1,17 @@
 window.onload = function () {
 /* ===== toggle Style Switcher ===== */ 
+/* ===== toggle Style Switcher ===== */ 
 const styleSwitcherToggler = document.querySelector(".style-switcher-toggler");
 const styleSwitcher = document.querySelector(".style-switcher");
 
 styleSwitcherToggler.addEventListener("click", () => {
-  if (navTogglerBtn.classList.contains("open")) {
-    aside.classList.remove("open");
-    navTogglerBtn.classList.remove("open");
-  }
-  styleSwitcher.classList.toggle("open");
+  // 다른 메뉴(aside)를 닫는 로직을 제거하고,
+  // 스타일 스위처를 토글하는 핵심 기능만 남깁니다.
+  styleSwitcher.classList.toggle("open");
 })
+
+/* ===== hide style - switcher on scroll ===== */ 
+// (이하 나머지 코드는 동일)
 
 /* ===== hide style - switcher on scroll ===== */ 
 window.addEventListener("scroll", () => {
